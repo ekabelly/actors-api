@@ -1,18 +1,12 @@
 const errorCodes = require('../constants/error-codes');
 
 module.exports = {
-  errHanlder (err, req, res) {
-    let errorCode = err;
-
-    if (!errorCodes[err]) {
-      // in case the error is not standard log the error
-      console.log(`The following error has occurred: ${JSON.stringify(err)}`);
-      errorCode = errorCodes.UNKNOWN_ERROR;
-    }
-
+  errHandler (err = { name: errorCodes.UNKNOWN_ERROR }, req, res) {
+    console.warn(err);
     // send the error code to the client
     res.send((500), {
-      errorCode,
+      err: err.name,
+      message: err.message,
       success: false
     });
   }

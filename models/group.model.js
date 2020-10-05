@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const mongooseLeanId = require('mongoose-lean-id');
-const { metaData, required } = require('./helpers');
+const { metaData } = require('./helpers');
 
 const EventSchema = mongoose.Schema({
-    title: required(String),
-    group: { type: mongoose.Schema.Types.ObjectId, ref: 'groups' },
-    startDate: Date,
-    endDate: Date,
-    address: String,
-    city: String,
+    title: {
+        type: String,
+        required: true,
+    },
+    users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
     description: String,
-    eventType: String,
+    groupType: String,
     numOfParticipants: Number,
     maxNumOfParticipants: Number,
     minNumOfParticipants: Number,
