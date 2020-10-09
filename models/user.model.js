@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 const mongooseLeanId = require('mongoose-lean-id');
-const { userMetaData, required } = require('./helpers');
+const { required, strictWithTimestamp } = require('./helpers');
 
 const UserSchema = mongoose.Schema({
     firstName: required(String),
     lastName: required(String),
     email: required(String, true),
-    password: required(String),
-    metaData: userMetaData
-}, {
-    strict: true
-});
+    password: required(String)
+}, strictWithTimestamp);
 
 UserSchema.plugin(mongooseLeanId);
 

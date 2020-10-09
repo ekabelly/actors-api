@@ -34,4 +34,24 @@ usersRouter.post('/', async (req, res, next) => {
     }
 });
 
+// get user by id
+usersRouter.get('/:id', async (req, res, next) => {
+    try {
+        const users = await usersLogic.fetchUserById(req.params.id);
+        resHandler(users, req, res);
+    } catch (e) {
+        next(e);
+    }
+});
+
+// get users
+usersRouter.get('/', async (req, res, next) => {
+    try {
+        const users = await usersLogic.fetchUsers(req.query);
+        resHandler(users, req, res);
+    } catch (e) {
+        next(e);
+    }
+});
+
 module.exports = usersRouter;

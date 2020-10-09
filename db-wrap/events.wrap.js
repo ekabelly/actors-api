@@ -1,13 +1,7 @@
 const Events = require('../models/event.model');
 
 module.exports.updateEvent = async event => {
-    const eventRes = await Events.findOneAndUpdate({ _id: event.id }, {
-        ...event,
-        metaData: {
-            ...event.metaData,
-            lastUpdated: new Date()
-        }
-    }, {
+    const eventRes = await Events.findOneAndUpdate({ _id: event.id }, event, {
         upsert: false,
         new: true,
         useFindAndModify: false
@@ -16,14 +10,7 @@ module.exports.updateEvent = async event => {
 }
 
 module.exports.createEvent = async event => {
-    const eventRes = await new Events({
-        ...event, 
-        metaData: {
-            ...event.metaData,
-            createdAt: new Date(),
-            lastUpdated: new Date()
-        }
-    }).save();
+    const eventRes = await new Events(event).save();
     return eventRes;
 }
 

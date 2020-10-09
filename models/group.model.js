@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mongooseLeanId = require('mongoose-lean-id');
-const { metaData } = require('./helpers');
+const { metaData, strictWithTimestamp } = require('./helpers');
 
 const EventSchema = mongoose.Schema({
     title: {
@@ -14,9 +14,7 @@ const EventSchema = mongoose.Schema({
     maxNumOfParticipants: Number,
     minNumOfParticipants: Number,
     metaData
-}, {
-    strict: true
-});
+}, strictWithTimestamp);
 
 EventSchema.plugin(mongooseLeanId);
 

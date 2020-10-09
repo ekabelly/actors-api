@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const mongooseLeanId = require('mongoose-lean-id');
-const { metaData, required } = require('./helpers');
+const { metaData, strictWithTimestamp, required } = require('./helpers');
 
 const EventSchema = mongoose.Schema({
     title: required(String),
-    group: { type: mongoose.Schema.Types.ObjectId, ref: 'groups' },
+    group: { type: mongoose.Schema.Types.ObjectId, ref: 'groups', required: false },
+    users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users', required: false }],
     startDate: Date,
     endDate: Date,
     address: String,
@@ -15,9 +16,18 @@ const EventSchema = mongoose.Schema({
     maxNumOfParticipants: Number,
     minNumOfParticipants: Number,
     metaData
-}, {
-    strict: true
-});
+}, strictWithTimestamp);
+
+const populatePre = function(next) {
+    this.populate('users');
+    this.populate('createdBy');
+    next();
+}
+
+EventSchema
+    .pre('find', populatePre)
+    .pre('findOne', populatePre)
+    .pre('findById', populatePre);
 
 EventSchema.plugin(mongooseLeanId);
 

@@ -6,20 +6,20 @@ const required = (type, unique) => ({
     unique
 });
 
-const metaData = {
-    lastUpdated: required('Number'),
-    createdAt: Number,
-}
-
 module.exports = {
     metaData: {
-        ...metaData,
-        lastUpdatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+        lastUpdatedBy: { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Users'
+        },
         createdBy: { 
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'Users'
         }
     },
-    userMetaData: metaData,
-    required
+    required,
+    strictWithTimestamp: {
+        strict: true,
+        timestamps: true
+    }
 }
