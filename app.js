@@ -11,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/v1/events', require('./controllers/events.api'));
+app.use('/api/v1/ads', require('./controllers/ads.api'));
 app.use('/api/v1/users', require('./controllers/users.api'));
 
 app.use((err, req, res, next) => errHandler(err, req, res));
