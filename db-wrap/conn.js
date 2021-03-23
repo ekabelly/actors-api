@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+const mysql = require('mysql');
 
-// Overriding defaults deprecated by mongodb driver
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true );
-
-module.exports =  mongoose.connect(process.env.DB_URL);
+module.exports = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: 'root',
+  password: '',
+  database: 'actors'
+});
