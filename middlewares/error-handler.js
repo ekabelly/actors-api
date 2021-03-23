@@ -1,7 +1,7 @@
 const errorCodes = require('../constants/error-codes');
 
 module.exports = {
-  errHandler (err = { name: errorCodes.UNKNOWN_ERROR }, req, res) {
+  errHandler (err = { name: errorCodes.UNKNOWN_ERROR }, res) {
     console.warn(err);
     // send the error code to the client
     res.send((500), {

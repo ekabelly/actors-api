@@ -12,6 +12,6 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/actors', require('./routes/actors.route'));
 
-app.use((err, req, res, next) => errHandler(err, req, res));
+app.use((err, req, res, next) => errHandler(err, res));
 
 (() => app.listen(process.env.PORT, () => console.log(`app listening on port ${process.env.PORT}`)))();

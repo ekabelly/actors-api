@@ -5,30 +5,30 @@ const actorsRoute = express.Router();
 const { resHandler } = require('../middlewares/middlewares');
 
 // update actor
-actorsRoute.put('/:id', async (req, res, next) => {
+actorsRoute.put('/:id', async ({body, params}, res, next) => {
     try {
-        const actorRes = await actorsController.updateActor({ ...req.body.actor, id: req.params.id });
-        resHandler(actorRes, req, res);
+        const actorRes = await actorsController.updateActor({ ...body.actor, id: params.id });
+        resHandler(actorRes, res);
     } catch (e) {
         next(e);
     }
 });
 
 // create actor
-actorsRoute.post('/', async (req, res, next) => {
+actorsRoute.post('/', async ({body}, res, next) => {
     try {
-        const actorRes = await actorsController.createActor(req.body.actor);
-        resHandler(actorRes, req, res);
+        const actorRes = await actorsController.createActor(body.actor);
+        resHandler(actorRes, res);
     } catch (e) {
         next(e);
     }
 });
 
 // get actor by id or actors
-actorsRoute.get('/:id?', async (req, res, next) => {
+actorsRoute.get('/:id?', async ({params}, res, next) => {
     try {
-        const actors = await actorsController.fetchActors(req.params.id);
-        resHandler(actors, req, res);
+        const actors = await actorsController.fetchActors(params.id);
+        resHandler(actors, res);
     } catch (e) {
         next(e);
     }
@@ -36,11 +36,21 @@ actorsRoute.get('/:id?', async (req, res, next) => {
 
 
 // create actor alias
-actorsRoute.post('/:id/alias', async (req, res, next) => {
+actorsRoute.post('/:id/alias', async ({body, params}, res, next) => {
     try {
         const actors = await actorsController
-            .createActorAlias({ ...req.body.actorAlias, actorId: req.params.id });
-        resHandler(actors, req, res);
+            .createActorAlias({ ...body.actorAlias, actorId: params.id });
+        resHandler(actors, res);
+    } catch (e) {
+        next(e);
+    }
+});
+
+// get actor aliases
+actorsRoute.get('/:id/alias', async ({params}, res, next) => {
+    try {
+        const actors = await actorsController.fetchActorAliases(params.id);
+        resHandler(actors, res);
     } catch (e) {
         next(e);
     }

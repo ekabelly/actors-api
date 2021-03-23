@@ -1,4 +1,4 @@
-const {createActorService, updateActorService, fetchActorsService, createActorAliasService} = require('../services/actors.service');
+const {createActorService, updateActorService, fetchActorsService, createActorAliasService, fetchActorAliasesService} = require('../services/actors.service');
 
 const updateActor = actor => updateActorService(actor);
 
@@ -8,9 +8,12 @@ const fetchActors = id => fetchActorsService(id);
 
 const createActorAlias = actorAlias => createActorAliasService(actorAlias);
 
+const fetchActorAliases = id => fetchActorAliasesService(id)
+
 module.exports = {
     updateActor,
     createActor,
     fetchActors,
-    createActorAlias
+    createActorAlias,
+    fetchActorAliases
 }
